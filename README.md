@@ -17,7 +17,7 @@ obligations that Verus can check.
 
 ## Example Prompt
 ```
-/generate_verus_specification for @d:\path\to\index_impl.rs:1-230
+/generate-verus-specification for @d:\path\to\index_impl.rs:1-230
 targeting valid_chain property and writing the solution to @src/main.rs
 ```
 
