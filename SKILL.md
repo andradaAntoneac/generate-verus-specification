@@ -35,6 +35,11 @@ Functions must be *verified* with proof obligations (e.g., `proof fn` lemmas or
 ensures on executable code) rather than only written as `spec fn` definitions.
 Use specs to model behavior, but include proofs that the target properties hold.
 
+## Structure preservation rule
+When translating Rust structs to Verus, preserve the original fields from the
+input structures. Ghost fields are allowed, but they must be added *in addition
+to* the concrete fields rather than replacing them.
+
 ## Behavior modeling rule
 Even if a target property is specified, model the full behavior of each function
 with preconditions and postconditions. For example, `push_back` should specify
