@@ -30,6 +30,11 @@ Generates Verus specifications from an abstract specification
 - do not use `#[verifier::external_body]` if the verification fails, unless it is an axiomatic proof
 - **real bug → STOP and report to the user, do not paper over it**
 
+## Verification rule
+Functions must be *verified* with proof obligations (e.g., `proof fn` lemmas or
+ensures on executable code) rather than only written as `spec fn` definitions.
+Use specs to model behavior, but include proofs that the target properties hold.
+
 ## Behavior modeling rule
 Even if a target property is specified, model the full behavior of each function
 with preconditions and postconditions. For example, `push_back` should specify
