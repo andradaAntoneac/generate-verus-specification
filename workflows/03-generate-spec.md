@@ -1,7 +1,7 @@
 # Step 3: Generate the Specification
 
 ##Before starting
-1. The code of the implementation should be preserved as much as possible
+1. The code of the implementation should be preserved as much as possible; but `asserts`, `assumes` and `proof` blocks can be added in the code to ensure the postconditions
 2. The structures in the implementations should be preserved as much as possible
 3. The result is an independent solution, dependencies in structures can be simplified as per the example in `examples/example-simplified-structure.md`
 4. Panics can not be used, instead return a value that marks and invalid output (`NONE` when an index is expected to be returned).
@@ -45,6 +45,7 @@
   value is unchanged. 
 - For immutable parameters (`&self` or plain values), `old(...)`/`final(...)` are
   optional; use them only when it improves clarity.
+- Minimize the usage of `assumes` and `#[verifier::external_body]`
 
 ## Next
 If loops/recursion → `04-add-invariants.md`

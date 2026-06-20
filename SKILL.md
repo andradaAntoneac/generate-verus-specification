@@ -12,6 +12,7 @@ Generates Verus specifications from an abstract specification
 ## Required inputs (ask if missing)
 1. **Rust implementation** — the actual code
 2. **Target property** — what must be proven (correctness, safety, etc.)
+3. **File path for result** - where the specification will be written
 
 ## Workflow (follow in order)
 1. Read `workflows/01-analyze-inputs.md`
@@ -26,7 +27,14 @@ Generates Verus specifications from an abstract specification
 ⚠️ When verification fails, you MUST determine the root cause:
 - weak spec → strengthen it
 - wrong spec → fix translation
+- do not use `#[verifier::external_body]` if the verification fails, unless it is an axiomatic proof
 - **real bug → STOP and report to the user, do not paper over it**
+
+## Behavior modeling rule
+Even if a target property is specified, model the full behavior of each function
+with preconditions and postconditions. For example, `push_back` should specify
+that the list length increases by one and that the new value is now part of the
+list.
 
 ## DLL-specific rule
 When modeling doubly linked lists, define mirrored reachability and chain
@@ -40,6 +48,10 @@ predicate.
 - Pattern selection → `references/spec-patterns.md`
 - Proof writing → `references/proof-patterns.md`
 - Errors → `references/common-pitfalls.md`
+
+## Checks
+- Always run `verus <path_to_file>` on the generated specification.
+- Treat any reported errors as required fixes.
 
 ## Output format
 Always produce:

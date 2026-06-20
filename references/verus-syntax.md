@@ -55,6 +55,9 @@
 | `seq![a, b]` | Sequence literal | `seq![x, y]` |
 | `set![a, b]` | Set literal | `set![x, y]` |
 
+## Option helpers
+Use `is_some()` and `is_none()`; `is_Some()` and `is_None()` are deprecated.
+
 ## Open vs closed spec
 In Verus, an **open** spec allows callers to rely on the spec but not its body,
 while a **closed** spec allows the verifier to use the body as part of proofs.
