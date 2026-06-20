@@ -1,0 +1,58 @@
+# Verus Specification Generator Skill
+
+This skill generates Verus specifications from a Rust implementation and an
+abstract specification, then proves a target property. It is designed to keep
+the resulting spec aligned with the implementation while producing proof
+obligations that Verus can check.
+
+## When to Use
+- You have a Rust implementation and want to verify it with Verus.
+- You have an abstract/mathematical specification you want to formalize.
+- You need to prove a specific property (e.g., `valid_chain`).
+
+## Required Inputs
+1. Rust implementation (file path or snippet).
+2. Target property to prove.
+3. Output file path for the generated Verus spec.
+
+## Example Prompt
+```
+/generate_verus_specification for @d:\path\to\index_impl.rs:1-230
+targeting valid_chain property and writing the solution to @src/main.rs
+```
+
+## Workflow (What the Skill Does)
+1. **Analyze inputs**: Identify functions, types, loops/recursion, and the
+   abstract list model (nodes, first/last, next/prev, list view).
+2. **Map to Verus constructs**: Translate preconditions to `requires`,
+   postconditions to `ensures`, and abstract helpers to `spec fn`.
+3. **Generate the spec**: Preserve structure, define helpers, and encode all
+   behavior for each function, not only the target property.
+4. **Add invariants** (if loops/recursion exist): Provide loop invariants and
+   `decreases` clauses.
+5. **Verify the target property**: Strengthen ensures or add proof functions.
+6. **Debug failures**: If verification fails, determine whether the spec is
+   weak, incorrect, or if there is a real bug.
+7. **Report discrepancies**: If the implementation is actually wrong, report
+   the mismatch instead of masking it.
+
+## Key Rules
+- Preserve concrete fields when modeling structs; add ghost fields only as
+  additions, not replacements.
+- Model full behavior of functions, not just the target property.
+- For doubly linked lists, define mirrored reachability and chain validity
+  (left and right) and combine them into a unified predicate.
+- Avoid `#[verifier::external_body]` unless it is an axiomatic proof.
+- Always run `verus <file>` and fix any errors.
+
+## Output
+The skill produces:
+- A complete annotated Verus file in this repository (specified by the user).
+- An explanation of each spec clause.
+- Proof obligations addressed.
+- A discrepancy report if any bugs or mismatches are found.
+
+## Notes
+The generated spec is intentionally storage‑agnostic unless the user asks for
+implementation details. It focuses on abstract correctness and proof
+obligations that Verus can verify.
