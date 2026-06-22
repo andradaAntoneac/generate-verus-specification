@@ -12,6 +12,8 @@
 3. Define `spec fn` helpers for abstract notions
 4. Use the appropriate template from `templates/`
 5. Simplify the functions if possible using `references/simplified-function-by-spec.md`
+6. Ensure each executable function is proved against its implementation with
+   assertions and proof lemmas (not only modeled by specs).
 
 ## Template selection
 - Plain function → `templates/function-spec.md`
@@ -49,6 +51,7 @@
 - For immutable parameters (`&self` or plain values), `old(...)`/`final(...)` are
   optional; use them only when it improves clarity.
 - Minimize the usage of `assumes` and `#[verifier::external_body]`
+  (external bodies only when the user provides an explicit axiom).
 
 ## Next
 If loops/recursion → `04-add-invariants.md`

@@ -66,11 +66,12 @@ proof fn trigger_example(s: Set<int>, x: int)
 ```
 
 ## Axiomatic lemma (external body)
-Declare a lemma with an external body and no implementation.
+Only use this when the user explicitly provides an axiom. Otherwise, prefer a
+real proof body so the property is shown for the actual code.
 
 Example:
 ```
-#[verifier(external_body)]
+#[verifier(external_body)] // only for user-provided axioms
 proof fn lemma_ext_commutes(a: int, b: int)
     ensures f(a, b) == f(b, a)
 ;

@@ -26,13 +26,16 @@ Generates Verus specifications from an abstract specification
 ⚠️ When verification fails, you MUST determine the root cause:
 - weak spec → strengthen it
 - wrong spec → fix translation
-- do not use `#[verifier::external_body]` if the verification fails, unless it is an axiomatic proof
+- do not use `#[verifier::external_body]` to bypass failures; only allow it for
+  axioms explicitly provided by the user
 - **real bug → STOP and report to the user, do not paper over it**
 
 ## Verification rule
 Functions must be *verified* with proof obligations (e.g., `proof fn` lemmas or
 ensures on executable code) rather than only written as `spec fn` definitions.
 Use specs to model behavior, but include proofs that the target properties hold.
+Every implementation function must have its behavior proved against the actual
+code, not just modeled in specs.
 
 ## Structure preservation rule
 When translating Rust structs to Verus, preserve the original fields from the

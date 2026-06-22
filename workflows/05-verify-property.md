@@ -7,6 +7,8 @@
    - `assert(...)` intermediate facts
    - `assume(...)` only temporarily, must be removed
    - lemma calls
+4. Ensure each executable function's `ensures` are discharged by the actual code
+   (no modeling-only specs).
 
 ## Common property types
 | Property               | How to encode                      |

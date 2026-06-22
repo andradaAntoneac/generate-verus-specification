@@ -42,7 +42,8 @@ targeting reachability-based chain validity and writing the solution to @src/mai
 - Model full behavior of functions, not just the target property.
 - For doubly linked lists, define chain validity via reachability: every node
   reachable from `first` via `next`, and `last` reachable from every node.
-- Avoid `#[verifier::external_body]` unless it is an axiomatic proof.
+- Prove properties against the actual implementation code (exec functions).
+- Avoid `#[verifier::external_body]` unless the user provides an explicit axiom.
 - Always run `verus <file>` and fix any errors.
 
 ## Output
