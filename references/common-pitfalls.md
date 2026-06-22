@@ -78,12 +78,12 @@ ensures self.next(id) == Some(id_next)
 ensures self.prev(id_next) == Some(id)
 ```
 
-## Forgetting reachability / no-cycle facts
-Example:
-```
-ensures self.first().is_some()
-```
-Fix: add a reachability invariant to prevent hidden cycles.
+
+Fix: add reachability facts (from `first` and to `last`) to pin down the chain.
 ```
 ensures self.wf_list()
+ensures forall |id: NodeId| self.nodes().contains(id)
+        ==> self.reachable_from_first(id)
+ensures forall |id: NodeId| self.nodes().contains(id)
+        ==> self.reachable_to_last(id)
 ```

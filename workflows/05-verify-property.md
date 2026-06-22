@@ -17,12 +17,12 @@
 | Algebraic law          | `proof fn` with `forall`           |
 | List order             | `list_view` equality               |
 | Link consistency       | `next/prev` mutual consistency     |
-| Reachability / acyclic | `wf_list` + traversal lemmas       |
+| Chain validity (reachability) | `wf_list` + reachability lemmas |
 
 ## DLL-focused proof helpers
 - Lemmas for chain extension and list_view append.
 - Frame lemmas for untouched nodes.
-- No-cycle lemmas to justify reachability.
+- Reachability lemmas to show all nodes reach `last`.
 
 ## Next
 If it fails → `06-debug-failures.md`

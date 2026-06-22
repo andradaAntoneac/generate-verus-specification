@@ -90,38 +90,6 @@ proof fn lemma_reachable_after_link(old_list: List, new_list: List, new_id: Node
 { }
 ```
 
-## Valid chain mirroring (left/right)
-Use mirror lemmas for forward and backward reachability.
-
-Example:
-```
-#[verifier(external_body)]
-proof fn lemma_valid_chain_left(old_list: List, new_list: List)
-    requires old_list == new_list
-    requires old_list.valid_chain_left()
-    ensures new_list.valid_chain_left()
-;
-
-#[verifier(external_body)]
-proof fn lemma_valid_chain_right(old_list: List, new_list: List)
-    requires old_list == new_list
-    requires old_list.valid_chain_right()
-    ensures new_list.valid_chain_right()
-{ }
-```
-
-## List view append
-Show that the abstract sequence gains one value at the end.
-
-Example:
-```
-proof fn lemma_list_view_append(old: List, new: List, value: T)
-    requires old.wf_list()
-    requires new.is_append_of(old, value)
-    ensures new.list_view() == old.list_view() + seq![value]
-{ }
-```
-
 ## Frame lemma for untouched nodes
 Use when only a few links are modified.
 

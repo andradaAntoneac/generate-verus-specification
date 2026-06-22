@@ -15,7 +15,7 @@
 - Check `decreases` actually decreases
 
 ## DLL-specific checks
-- `list_view` mismatch → missing reachability/chain lemma.
+- `list_view` mismatch → missing reachability lemma (from `first` or to `last`).
 - `next/prev` mismatch → update both directions in the spec.
 - `first/last` mismatch → check empty/non-empty cases.
 

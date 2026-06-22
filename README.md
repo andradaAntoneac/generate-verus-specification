@@ -8,7 +8,7 @@ obligations that Verus can check.
 ## When to Use
 - You have a Rust implementation and want to verify it with Verus.
 - You have an abstract/mathematical specification you want to formalize.
-- You need to prove a specific property (e.g., `valid_chain`).
+- You need to prove a specific property (e.g., reachability-based chain validity).
 
 ## Required Inputs
 1. Rust implementation (file path or snippet).
@@ -18,7 +18,7 @@ obligations that Verus can check.
 ## Example Prompt
 ```
 /generate-verus-specification for @d:\path\to\index_impl.rs:1-230
-targeting valid_chain property and writing the solution to @src/main.rs
+targeting reachability-based chain validity and writing the solution to @src/main.rs
 ```
 
 ## Workflow (What the Skill Does)
@@ -40,8 +40,8 @@ targeting valid_chain property and writing the solution to @src/main.rs
 - Preserve concrete fields when modeling structs; add ghost fields only as
   additions, not replacements.
 - Model full behavior of functions, not just the target property.
-- For doubly linked lists, define mirrored reachability and chain validity
-  (left and right) and combine them into a unified predicate.
+- For doubly linked lists, define chain validity via reachability: every node
+  reachable from `first` via `next`, and `last` reachable from every node.
 - Avoid `#[verifier::external_body]` unless it is an axiomatic proof.
 - Always run `verus <file>` and fix any errors.
 

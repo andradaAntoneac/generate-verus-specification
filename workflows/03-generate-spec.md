@@ -22,7 +22,6 @@
   - Empty iff `first/last` are `None`.
   - `first/last` are members of `nodes`.
   - `next`/`prev` are mutually consistent.
-  - All nodes are reachable from `first` via `next` (no hidden cycles).
 - Define `list_view(self) -> Seq<T>` by traversing from `first`.
 - Express updates via `nodes`, `next`, `prev`, and `list_view`:
   - `push_back` appends a value.
@@ -30,6 +29,10 @@
   - `insert_before/after` splice a value between neighbors.
   - `delete` removes one node from the sequence.
 - Keep NodeId generic (opaque type); avoid allocation details unless requested.
+
+
+## Properties 
+1. The validity of the chain should be proved by reachability as per `properties/valid-chain.md`
 
 ## Quality checks
 - Every parameter constraint captured?

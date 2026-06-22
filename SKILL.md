@@ -46,10 +46,9 @@ that the list length increases by one and that the new value is now part of the
 list.
 
 ## DLL-specific rule
-When modeling doubly linked lists, define mirrored reachability and chain
-validity functions for both directions (e.g., `reachable_left/right`,
-`valid_chain_left/right`) and combine them into a single `reachable`/`valid_chain`
-predicate.
+Define chain validity via reachability: every node is reachable from `first`
+via `next`, and from each node, `last` is reachable via `next`. Do not use
+mirrored left/right reachability or separate chain-validity predicates.
 
 ## Reference material
 - Abstract specification of operations → `references/abstract-specification.md`
