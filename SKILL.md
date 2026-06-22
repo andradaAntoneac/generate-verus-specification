@@ -1,18 +1,17 @@
-#Title
-Verus Specification Generator
+
+# Verus Specification Generator for Doubly Linked Lists
 
 ## Description
 Generates Verus specifications from an abstract specification 
-  and a Rust implementation, then proves a target property. Use when the 
-  user wants to formally verify Rust code with Verus.
+  and a Rust Doubly Linked List implementation, then proves a target property. Use when the user wants to formally verify Rust code with Verus.
 - User has a Rust implementation and wants to verify it
 - User has an abstract/mathematical spec they want to formalize
 - User wants to prove a specific property holds
 
 ## Required inputs (ask if missing)
-1. **Rust implementation** — the actual code
-2. **Target property** — what must be proven (correctness, safety, etc.)
-3. **File path for result** - where the specification will be written
+1. **Rust implementation** — the actual code for the implementation
+2. **Target property** — what must be proven (correctness, overflow, validity of chain, etc.)
+3. **File path for result** - where the specification will be written, preferably a Rust project for Verus verification
 
 ## Workflow (follow in order)
 1. Read `workflows/01-analyze-inputs.md`
