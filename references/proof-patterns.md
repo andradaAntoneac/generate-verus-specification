@@ -85,12 +85,30 @@ Example:
 ```
 proof fn lemma_bidirectional_link(dll: List, id: NodeId)
     requires 
-        dll.in_chain(id)
-        dll.next(id).is_some()
-        dll.in_chain(dll.next(id).unwrap())
+        dll.in_chain(id),
+        dll.next(id).is_some(),
+        dll.in_chain(dll.next(id).unwrap()),
     ensures 
-        dll.prec(dll.next(id).unwrap()) == Some(id)
+        dll.prec(dll.next(id).unwrap()) == Some(id),
 { }
+```
+
+## Single-node boundary split (consistency lemmas)
+Handle the `len == 1` case once at the top of each consistency lemma.
+```
+proof fn lemma_consistency(op_inputs...)
+    requires 
+        old_list.wf_list(),
+    ensures 
+        new_list.wf_list(),
+{
+    if old_list.nodes().len() == 1 {
+        // establish: old_list.first() == old_list.last() == only_id
+        // and next/prev(only_id) == None, then finish this branch
+    } else {
+        // main proof for len >= 2
+    }
+}
 ```
 
 ## Reachability after link
@@ -99,11 +117,13 @@ Prove that adding one node preserves reachability for all nodes.
 Example:
 ```
 proof fn lemma_reachable_after_link(old_list: List, new_list: List, new_id: NodeId)
-    requires old_list.wf_list()
-    requires new_list.wf_list()
-    requires new_list.nodes() == old_list.nodes().insert(new_id)
-    ensures forall |id: NodeId| new_list.nodes().contains(id)
-               ==> new_list.reachable(id)
+    requires 
+        old_list.wf_list(),
+        new_list.wf_list(),
+        new_list.nodes() == old_list.nodes().insert(new_id),
+    ensures 
+        forall |id: NodeId| new_list.nodes().contains(id)
+               ==> new_list.reachable(id),
 { }
 ```
 
@@ -113,9 +133,11 @@ Use when only a few links are modified.
 Example:
 ```
 proof fn lemma_frame_next(old: List, new: List, untouched: Set<NodeId>)
-    requires forall |id: NodeId| untouched.contains(id) ==>
-                 old.next(id) == new.next(id)
-    ensures forall |id: NodeId| untouched.contains(id) ==>
-                 old.prev(id) == new.prev(id)
+    requires 
+        forall |id: NodeId| untouched.contains(id) ==>
+                 old.next(id) == new.next(id),
+    ensures 
+        forall |id: NodeId| untouched.contains(id) ==>
+                 old.prev(id) == new.prev(id),
 { }
 ```

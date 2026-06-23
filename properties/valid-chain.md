@@ -19,11 +19,17 @@ The chain is valid when the following all hold:
 2. **Establish base cases**:
    - Empty list: `nodes` is empty, so the property holds vacuously.
    - Single node: `first == last`, and the node reaches itself.
-3. **Show structural consistency**:
+3. **Single-node boundary invariant**:
+   - For consistency lemmas, split early on `old_list.nodes().len() == 1`.
+   - Record the structural fact once: `first == last == the only element`,
+     with `next/prev` of that element being `None`.
+   - Use this invariant at the top of the lemma instead of rediscovering it in
+     each sub-step.
+4. **Show structural consistency**:
    - `first` and `last` are members of `nodes` when present.
    - `next`/`prev` are consistent, so a forward step has a matching backward
      step.
-4. **Prove reachability after each update**:
+5. **Prove reachability after each update**:
    - Identify which links and nodes changed.
    - For **existing nodes**, show their path from `first` still exists or can
      be repaired through the updated links.
@@ -31,10 +37,10 @@ The chain is valid when the following all hold:
      and that they can reach `last`.
    - For **deleted nodes**, show they are removed from `nodes` and are not
      required to satisfy reachability.
-5. **Handle changes to `first`/`last`**:
+6. **Handle changes to `first`/`last`**:
    - If `first` changes, show all nodes remain reachable from the new `first`.
    - If `last` changes, show every node reaches the new `last`.
-6. **Conclude chain validity** by combining the reachability facts for all
+7. **Conclude chain validity** by combining the reachability facts for all
    nodes in `nodes`.
 
 ## Consistency lemmas for mutating operations

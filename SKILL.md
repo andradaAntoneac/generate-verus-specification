@@ -56,6 +56,9 @@ Even if a target property is specified, model the full behavior of each function
 with preconditions and postconditions. For example, `push_back` should specify
 that the list length increases by one and that the new value is now part of the
 list.
+For mutating operations (`push_*`, `insert_*`, `delete`), read the concrete
+link-update code paths and generate precise `next`/`prev` postconditions, plus
+frame clauses for untouched nodes.
 
 ## DLL-specific rule
 Define chain validity via reachability: every node is reachable from `first`

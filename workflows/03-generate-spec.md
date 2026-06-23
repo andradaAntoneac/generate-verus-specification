@@ -33,6 +33,10 @@ opaque library types), switch immediately to a full
   - `first/last` are members of `nodes`.
   - `next`/`prev` are mutually consistent.
 - Define `list_view(self) -> Seq<T>` by traversing from `first`.
+- For every mutating operation (`push_*`, `insert_*`, `delete`), read the exact
+  link-update code path and generate precise link postconditions:
+  - explicit `next`/`prev` updates for touched nodes
+  - frame clauses for all untouched nodes (unchanged `next`/`prev`)
 - If values must be tracked and operations take `value: T`, add `T: View`,
   introduce a ghost `values: Ghost<Seq<T>>`, and update `values@` in postconditions.
 - Express updates via `nodes`, `next`, `prev`, and `list_view`:

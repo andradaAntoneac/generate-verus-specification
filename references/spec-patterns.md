@@ -17,8 +17,9 @@ proof fn commutes(a: int, b: int)
 
 ## Pattern: Algebraic law (identity)
 proof fn identity(a: int)
-    ensures f(a, e) == a
-    ensures f(e, a) == a
+    ensures 
+        f(a, e) == a,
+        f(e, a) == a
 
 ## Pattern: Algebraic law (associativity)
 proof fn associativity(a: int, b: int, c: int)
@@ -72,6 +73,21 @@ spec fn wf_list(self) -> bool {
 ```
 spec fn list_view(self) -> Seq<T> { /* traverse from first via next */ }
 ```
+
+## Pattern: Link update postconditions (frame)
+Use for mutating operations that change a few links. Mirror the concrete code
+path and record which keys changed, with a frame for all others.
+```
+ensures 
+    self.next(a) == Some(b),
+    self.prev(b) == Some(a),
+    forall |id: NodeId|
+        id != a && id != b ==> {
+        self.next(id) == old(self).next(id)
+        && self.prev(id) == old(self).prev(id)
+    },
+```
+Extend with explicit `first`/`last` updates when those fields change.
 
 ## Pattern: Value tracking with `View`
 Use when operations take `value: T` and the spec must track values explicitly.
