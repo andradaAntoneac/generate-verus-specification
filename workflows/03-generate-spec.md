@@ -6,6 +6,14 @@
 3. The result is an independent solution, dependencies in structures can be simplified as per the example in `examples/example-simplified-structure.md`
 4. Panics can not be used, instead return a value that marks and invalid output (`NONE` when an index is expected to be returned).
 
+## Axiom-boundary strategy
+If Step 1 classified the implementation as axiom-boundary (unsafe, raw pointers,
+opaque library types), switch immediately to a full
+`#[verifier::external_body]` strategy:
+- Mark executable functions as `external_body`
+- Do not attempt to prove code bodies
+- Spend effort on precise `requires`/`ensures` and consistency lemmas
+
 ## Procedure
 1. For each function, add `requires` from preconditions
 2. Add `ensures` from postconditions
@@ -25,6 +33,8 @@
   - `first/last` are members of `nodes`.
   - `next`/`prev` are mutually consistent.
 - Define `list_view(self) -> Seq<T>` by traversing from `first`.
+- If values must be tracked and operations take `value: T`, add `T: View`,
+  introduce a ghost `values: Ghost<Seq<T>>`, and update `values@` in postconditions.
 - Express updates via `nodes`, `next`, `prev`, and `list_view`:
   - `push_back` appends a value.
   - `push_front` prepends a value.
@@ -51,7 +61,7 @@
 - For immutable parameters (`&self` or plain values), `old(...)`/`final(...)` are
   optional; use them only when it improves clarity.
 - Minimize the usage of `assumes` and `#[verifier::external_body]`
-  (external bodies only when the user provides an explicit axiom).
+  (external bodies only for explicit axioms or axiom-boundary code).
 
 ## Next
 If loops/recursion → `04-add-invariants.md`

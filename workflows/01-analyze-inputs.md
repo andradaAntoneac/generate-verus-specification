@@ -12,6 +12,8 @@ Read `references/abstract-specification.md`. It is the base for the demonstratio
 - [ ] Identify abstract list observations: `first`, `last`, `next`, `prev`,
   `value`, `is_empty`, `size`
 - [ ] Determine the NodeId type (opaque, index, pointer, etc.)
+- [ ] Detect axiom-boundary class: unsafe blocks, raw pointers, or opaque
+      library types. If present, plan to use full `external_body` strategy.
 - [ ] Extract from abstract spec:
   - Preconditions (what must hold on input)
   - Postconditions (what holds on output)
@@ -29,6 +31,7 @@ A structured summary:
 | Preconditions | ... |
 | Postconditions | ... |
 | Target properties | Deduce from user (one or more) |
+| Axiom boundary | yes/no, reason (unsafe/raw/opaque) |
 
 ## Next
 Proceed to `02-map-spec-to-verus.md`

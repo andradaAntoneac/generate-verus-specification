@@ -77,6 +77,22 @@ proof fn lemma_ext_commutes(a: int, b: int)
 ;
 ```
 
+## Bidirectional link lemma (from postconditions)
+Even under `external_body`, a bidirectional link lemma can be proved from the
+axiomatized postconditions of `next`/`prec` (or `prev`).
+
+Example:
+```
+proof fn lemma_bidirectional_link(dll: List, id: NodeId)
+    requires 
+        dll.in_chain(id)
+        dll.next(id).is_some()
+        dll.in_chain(dll.next(id).unwrap())
+    ensures 
+        dll.prec(dll.next(id).unwrap()) == Some(id)
+{ }
+```
+
 ## Reachability after link
 Prove that adding one node preserves reachability for all nodes.
 

@@ -37,12 +37,22 @@ The chain is valid when the following all hold:
 6. **Conclude chain validity** by combining the reachability facts for all
    nodes in `nodes`.
 
+## Consistency lemmas for mutating operations
+For every mutating operation, generate a lemma that proves its postconditions
+imply `wf_list` (valid chain). This must exist for:
+- `push_back`
+- `push_front`
+- `insert_before`
+- `insert_after`
+- `delete`
+
 ## Checklist for each mutating operation
 - The `nodes` set is updated correctly (insert/remove one node).
 - `first`/`last` are updated consistently with empty/non-empty cases.
 - `next`/`prev` links remain mutually consistent.
 - All nodes are reachable from `first`.
 - `last` is reachable from every node.
+- A consistency lemma exists for this operation (postconditions ⇒ `wf_list`).
 
 ## Common pitfalls to avoid
 - Proving reachability from `first` but forgetting reachability to `last`.

@@ -27,8 +27,17 @@ Generates Verus specifications from an abstract specification
 - weak spec → strengthen it
 - wrong spec → fix translation
 - do not use `#[verifier::external_body]` to bypass failures; only allow it for
-  axioms explicitly provided by the user
+  axioms explicitly provided by the user, or when the implementation is in the
+  **axiom-boundary class** (unsafe code, raw pointers, opaque library types)
+  and you must switch to the full external-body strategy
 - **real bug → STOP and report to the user, do not paper over it**
+
+## Axiom-boundary rule
+If the implementation uses unsafe, raw pointers, or opaque library types, treat
+it as an **axiom-boundary** and switch immediately to the full
+`#[verifier::external_body]` strategy. Focus on precise postconditions and
+consistency lemmas instead of trying to verify code bodies. Document that the
+limitation is a Verus boundary, not a proof failure.
 
 ## Verification rule
 Functions must be *verified* with proof obligations (e.g., `proof fn` lemmas or

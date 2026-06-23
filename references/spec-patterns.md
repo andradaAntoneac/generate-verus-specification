@@ -73,6 +73,21 @@ spec fn wf_list(self) -> bool {
 spec fn list_view(self) -> Seq<T> { /* traverse from first via next */ }
 ```
 
+## Pattern: Value tracking with `View`
+Use when operations take `value: T` and the spec must track values explicitly.
+Require `T: View` and store a ghost sequence.
+```
+struct Dll<T: View> {
+    // concrete fields ...
+    ghost values: Ghost<Seq<T>>,
+}
+```
+Push postconditions update the ghost sequence:
+```
+ensures self.values@ == old(self).values@ + seq![value]   // push_back
+ensures self.values@ == seq![value] + old(self).values@   // push_front
+```
+
 ## Pattern: List view updates
 - Push back:
   `ensures self.list_view() == old(self).list_view() + seq![value]`
