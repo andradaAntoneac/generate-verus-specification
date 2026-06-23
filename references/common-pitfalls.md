@@ -87,3 +87,24 @@ ensures forall |id: NodeId| self.nodes().contains(id)
 ensures forall |id: NodeId| self.nodes().contains(id)
         ==> self.reachable_to_last(id)
 ```
+
+## Unsupported Rust features (Verus limitations)
+Example:
+```
+error: The verifier does not yet support the following Rust feature: index for &mut not supported
+   --> verifications/verify_index_impl.rs:565:21
+```
+Fix: refactor to a supported pattern. For mutable indexing, prefer `Vec::set` or
+an explicit helper that rewrites `vec[i] = v` into a supported operation. If the
+feature is unavoidable, isolate it in a small function and use
+`#[verifier::external_body]` only when the user explicitly approves treating it
+as an axiom; document that the limitation is in Verus, not a proof failure.
+
+## Missing `main` function (E0601)
+Example:
+```
+error[E0601]: `main` function not found in crate `verify_index_impl`
+   --> verifications/verify_index_impl.rs:997:2
+```
+Fix: add a stub `fn main() {}` (inside `verus!{ ... }` if this is the crate
+root), or move the file into a library crate (`lib.rs`) and run Verus as a lib.
