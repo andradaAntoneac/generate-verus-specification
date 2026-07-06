@@ -53,6 +53,29 @@ The skill produces:
 - Proof obligations addressed.
 - A discrepancy report if any bugs or mismatches are found.
 
+## Result Examples
+The `result_examples/` folder contains full, generated Verus artifacts from
+prior runs. Each file illustrates a distinct implementation model and proof
+strategy:
+- `result_examples/1.index_codex_5.2_high.rs` shows a baseline index‑based DLL
+  spec with explicit reachability predicates and placeholder `assume`‑based
+  proof stubs for some mutation obligations.
+- `result_examples/2.index_claude_4.8_max.rs` provides a detailed index‑based
+  specification with reachability lemmas, link consistency, and a free‑list
+  well‑formedness invariant.
+- `result_examples/3.index_claude_4.8_max.rs` presents a stronger invariant
+  variant that introduces a ghost `order` sequence and proves `valid_chain`
+  as a consequence of the inductive representation invariant.
+- `result_examples/4.index_claude_4.6_high.rs` emphasizes traversal‑based
+  reasoning (e.g., `chain_seq`, `no_dups`, and traversal frame lemmas) for
+  reachability‑based validity.
+- `result_examples/5.standard_claude_4.6_high.rs` models a pointer‑based DLL as
+  an axiom boundary, using a ghost chain plus consistency lemmas for
+  `push_back`/`push_front`.
+- `result_examples/6.slotmap_claude_4.6_high.rs` models a slotmap‑backed DLL
+  with ghost chain and link maps, treating SlotMap operations as external
+  bodies while proving link‑consistency lemmas.
+
 ## Notes
 The generated spec is intentionally storage‑agnostic unless the user asks for
 implementation details. It focuses on abstract correctness and proof

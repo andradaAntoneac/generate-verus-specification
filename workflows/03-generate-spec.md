@@ -1,6 +1,6 @@
 # Step 3: Generate the Specification
 
-##Before starting
+## Before starting
 1. The code of the implementation should be preserved as much as possible; but `asserts`, `assumes` and `proof` blocks can be added in the code to ensure the postconditions
 2. The structures in the implementations should be preserved as much as possible
 3. The result is an independent solution, dependencies in structures can be simplified as per the example in `examples/example-simplified-structure.md`

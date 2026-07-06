@@ -42,7 +42,9 @@ Example:
 proof fn lemma_bounds(i: int, len: int)
     requires 0 <= i < len
     ensures i < len
-{ }
+{ 
+    \\here there might be code and assertion clauses to ensure the postconditions
+}
 
 proof fn use_bounds(i: int, len: int)
     requires 0 <= i < len
@@ -74,7 +76,7 @@ Example:
 #[verifier(external_body)] // only for user-provided axioms
 proof fn lemma_ext_commutes(a: int, b: int)
     ensures f(a, b) == f(b, a)
-;
+{}
 ```
 
 ## Bidirectional link lemma (from postconditions)

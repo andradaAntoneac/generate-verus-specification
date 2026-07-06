@@ -5,7 +5,7 @@ Build a mental model before writing any Verus.
 
 Read `references/abstract-specification.md`. It is the base for the demonstration flow.
 
-## Checklist
+## Checklist for Actual Implentation
 - [ ] Identify all function signatures (name, params, return type)
 - [ ] Identify data types (structs, enums) and their fields
 - [ ] Detect control structures: loops, recursion, branches
