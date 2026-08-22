@@ -28,6 +28,8 @@ A `ensures`/property fails AND you've ruled out:
 
 5. **Write the report** using `templates/discrepancy-report.md`
 
+Then proceed to `08-report-proof-status.md` (always).
+
 ## Output: structured bug report
 Always include:
 - Location (file:line, function name)

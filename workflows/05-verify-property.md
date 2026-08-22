@@ -28,3 +28,4 @@
 
 ## Next
 If it fails → `06-debug-failures.md`
+If it succeeds or stalls → `08-report-proof-status.md` (always run at end)

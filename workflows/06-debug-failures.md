@@ -21,3 +21,9 @@
 
 ## See also
 `references/common-pitfalls.md`
+
+## Next
+- If root cause is a real bug → `07-report-discrepancies.md`
+- Otherwise continue strengthening spec, then → `08-report-proof-status.md`
+  (document every significant failure and fix attempt in the proof struggles
+  section)

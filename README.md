@@ -146,6 +146,8 @@ targeting reachability-based chain validity and writing the solution to @src/mai
    weak, incorrect, or if there is a real bug.
 7. **Report discrepancies**: If the implementation is actually wrong, report
    the mismatch instead of masking it.
+8. **Report proof status**: Summarize what was demonstrated, what still relies
+   on assumptions or axioms, and where the proof was difficult.
 
 ## Key Rules
 - Preserve concrete fields when modeling structs; add ghost fields only as
@@ -162,6 +164,10 @@ The skill produces:
 - A complete annotated Verus file in this repository (specified by the user).
 - An explanation of each spec clause.
 - Proof obligations addressed.
+- A **proof status report** (`{spec}_proof_status.md`) covering:
+  - what was fully demonstrated (verified functions, lemmas, target property),
+  - what is still assumed (`assume`, `external_body`, restricted `requires`),
+  - proof struggles (failures encountered, tactics tried, resolutions).
 - A discrepancy report if any bugs or mismatches are found.
 
 ## Result Examples

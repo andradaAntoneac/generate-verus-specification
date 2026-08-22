@@ -21,6 +21,7 @@ Generates Verus specifications from an abstract specification
 5. Read `workflows/05-verify-property.md`
 6. Read `workflows/06-debug-failures.md` (if verification fails)
 7. Read `workflows/07-report-discrepancies.md` ← if failure is a real bug
+8. Read `workflows/08-report-proof-status.md` ← always, at end of every run
 
 ## Critical principle
 ⚠️ When verification fails, you MUST determine the root cause:
@@ -71,6 +72,7 @@ mirrored left/right reachability or separate chain-validity predicates.
 - Pattern selection → `references/spec-patterns.md`
 - Proof writing → `references/proof-patterns.md`
 - Errors → `references/common-pitfalls.md`
+- Proof status report template → `templates/proof-status-report.md`
 
 ## Checks
 - Always run `verus <path_to_file>` on the generated specification.
@@ -81,4 +83,7 @@ Always produce:
 - Complete annotated Verus file in the current directory
 - Explanation of each spec clause
 - Proof obligations addressed
+- **Proof status report** — what was demonstrated, what is still assumed,
+  and proof struggles; see `templates/proof-status-report.md` and
+  `workflows/08-report-proof-status.md`
 - **Discrepancy report (if any bugs/mismatches found)** — see `templates/discrepancy-report.md`
